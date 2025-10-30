@@ -38,20 +38,3 @@ The project follows an **Agile sprint methodology** with a focus on comprehensiv
 
 
 
-## 📬 How to Contribute
-
-1. Pull the latest changes before starting work.
-2. Create a feature branch (e.g., `sprint3/api-fixes`).
-3. Add/update test cases, scripts, or documentation.
-4. Submit a pull request with a clear description.
-5. Assign a teammate for review.
-
----
-
-## 📅 Next Steps
-
-- Execute all test cases in **Sprint 3**  
-- Log and track defects in Jira  
-- Refine automation scripts based on execution feedback  
-- Prepare final deliverables for **Sprint 4**
-
