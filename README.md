@@ -15,26 +15,23 @@ The project follows an **Agile sprint methodology** with a focus on comprehensiv
 
 ---
 
-## 🚀 Current Status (As of October 30, 2025)
+## ✅ Current Status (As of October 30, 2025)
 
-✅ **Sprint 1 (Oct 14 – Oct 16, 2025): Planning & Environment Setup**  
-- Test plan finalized and approved  
-- Test environments configured  
-- Initial exploratory testing completed  
+**Sprints 1 & 2 are complete.** All foundational planning and test design work has been delivered:
 
-✅ **Sprint 2 (Oct 17 – Oct 29, 2025): Test Case Design & Initial Automation**  
-- Manual UI test cases drafted (see `UI test cases - Home.csv`)  
-- API test cases designed and partially executed (see `APITestCases_updated - Sheet1.csv`)  
-- SQL validation scripts for OpenCart database initiated  
-- Core automated test framework (Selenium + Python) set up  
+- ✅ **Test Plan** finalized and approved (`Test_Plan.pdf`)
+- ✅ **UI Test Cases** template created (`UI test cases - Home.csv`)  
+  *(Note: Test steps and details will be filled during execution in Sprint 3)*
+- ✅ **API Test Cases** designed, executed, and documented (`APITestCases_updated - Sheet1.csv`)  
+  - Includes 19 test scenarios covering product listing, search, user authentication, account management, and error handling
+  - Results show both **PASSED** and **FAILED** cases, providing clear input for defect reporting
 
-🔜 **Sprint 3 (Oct 30 – Nov 7, 2025): Execution & Defect Management**  
-- Full test execution (manual, automated, API, DB)  
-- Defect logging, tracking, and retesting  
+**Next: Sprint 3 (Oct 30 – Nov 7, 2025)** will focus on:
+- Full **UI test execution** (manual + automation)
+- **Defect logging** for failed API and UI tests
+- **Database validation** for OpenCart using SQL scripts
+- **Retesting** and validation of fixes
 
-🔜 **Sprint 4 (Nov 8 – Nov 27, 2025): Reporting & Finalization**  
-- Test summary report  
-- Artifact archival and knowledge transfer
+---
 
-
-
+## 📁 Repository Structure
