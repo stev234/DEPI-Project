@@ -35,15 +35,15 @@ The project follows an **Agile sprint methodology** with a focus on comprehensiv
 ---
 
 ## 📁 Repository Structure
-├── docs/
-│ └── Test_Plan.pdf # Approved test strategy & schedule
-├── test-cases/
-│ ├── UI test cases - Home.csv # Manual UI test case template (to be completed in Sprint 3)
-│ └── APITestCases_updated - Sheet1.csv # Completed API test cases with execution results
-├── automation/
-│ └── (To be added in Sprint 3) # Selenium + Python UI automation scripts
-├── database/
-│ └── (To be added in Sprint 3) # SQL validation scripts for OpenCart
-├── reports/
-│ └── (To be generated in Sprint 3) # Defect logs, execution summaries, retest results
-└── README.md # This file
+- ├── docs/
+- │ └── Test_Plan.pdf # Approved test strategy & schedule
+- ├── test-cases/
+- │ ├── UI test cases - Home.csv # Manual UI test case template (to be completed in Sprint 3)
+- │ └── APITestCases_updated - Sheet1.csv # Completed API test cases with execution results
+- ├── automation/
+- │ └── (To be added in Sprint 3) # Selenium + Python UI automation scripts
+- ├── database/
+- │ └── (To be added in Sprint 3) # SQL validation scripts for OpenCart
+- ├── reports/
+- │ └── (To be generated in Sprint 3) # Defect logs, execution summaries, retest results
+- └── README.md # This file
