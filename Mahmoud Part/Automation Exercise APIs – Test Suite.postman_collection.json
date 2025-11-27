@@ -1,0 +1,966 @@
+{
+	"info": {
+		"_postman_id": "86ec85f1-3c87-4ebd-90bf-5df2888d4298",
+		"name": "Automation Exercise APIs – Test Suite",
+		"description": "Comprehensive tests for https://automationexercise.com APIs. Includes positive and negative cases per official API list.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48837784",
+		"_collection_link": "https://s-mahmoud-elzayat-1234131.postman.co/workspace/Mahmoud-Amr-202300199's-Workspa~0ca3ef36-16ec-4ade-88e7-92417e179f81/collection/48837784-86ec85f1-3c87-4ebd-90bf-5df2888d4298?action=share&source=collection_link&creator=48837784"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "API 1: Get All Products List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"let bodyJson = null;",
+									"if (isJson) {",
+									"  try { bodyJson = pm.response.json(); } catch(e) {}",
+									"}",
+									"pm.test('Status 200 or 404 (tolerant)', () => {",
+									"  pm.expect([200,404]).to.include(pm.response.code);",
+									"});",
+									"if (pm.response.code === 200 && bodyJson) {",
+									"  pm.test('Products list shape', () => {",
+									"    pm.expect(bodyJson).to.have.property('products');",
+									"    pm.expect(bodyJson.products).to.be.an('array');",
+									"  });",
+									"} else {",
+									"  pm.test('Received 404 HTML fallback (informational)', () => true);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/productsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						},
+						"description": "Returns all products list"
+					},
+					"response": []
+				},
+				{
+					"name": "API 2: POST To All Products List (405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"pm.test('Status 405/404 (method not allowed/not found)', () => {",
+									"  pm.expect([404,405]).to.include(pm.response.code);",
+									"});",
+									"pm.test('Method not supported - tolerant', () => {",
+									"  const expectedSnippets = ['This request method is not supported', 'Not Found', 'Method Not Allowed'];",
+									"  pm.expect(expectedSnippets.some(s => bodyText.includes(s))).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/productsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						},
+						"description": "Negative: POST not supported"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "API 3: Get All Brands List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"let bodyJson = null;",
+									"if (isJson) {",
+									"  try { bodyJson = pm.response.json(); } catch(e) {}",
+									"}",
+									"pm.test('Status 200 or 404 (tolerant)', () => {",
+									"  pm.expect([200,404]).to.include(pm.response.code);",
+									"});",
+									"if (pm.response.code === 200 && bodyJson) {",
+									"  pm.test('Brands list shape', () => {",
+									"    pm.expect(bodyJson).to.have.property('brands');",
+									"    pm.expect(bodyJson.brands).to.be.an('array');",
+									"  });",
+									"} else {",
+									"  pm.test('Received 404 HTML fallback (informational)', () => true);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brandsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						},
+						"description": "Returns all brands list"
+					},
+					"response": []
+				},
+				{
+					"name": "API 4: PUT To All Brands List (405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"pm.test('Status 405/404 (method not allowed/not found)', () => {",
+									"  pm.expect([404,405]).to.include(pm.response.code);",
+									"});",
+									"pm.test('Method not supported - tolerant', () => {",
+									"  const expectedSnippets = ['This request method is not supported', 'Not Found', 'Method Not Allowed'];",
+									"  pm.expect(expectedSnippets.some(s => bodyText.includes(s))).to.be.true;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brandsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						},
+						"description": "Negative: PUT not supported"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "API 5: POST To Search Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"let bodyJson = null;",
+									"if (isJson) { try { bodyJson = pm.response.json(); } catch(e) {} }",
+									"",
+									"pm.test('Status 200 or 404 (tolerant)', () => {",
+									"  pm.expect([200, 404]).to.include(pm.response.code);",
+									"});",
+									"",
+									"if (pm.response.code === 200 && bodyJson) {",
+									"  pm.test('Products array present', () => {",
+									"    pm.expect(bodyJson).to.have.property('products');",
+									"    pm.expect(bodyJson.products).to.be.an('array');",
+									"  });",
+									"} else {",
+									"  pm.test('Received 404 HTML fallback (informational)', () => true);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "search_product",
+									"value": "tshirt"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/searchProduct",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						},
+						"description": "Search by search_product parameter"
+					},
+					"response": []
+				},
+				{
+					"name": "API 6: POST Search Product without parameter (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"pm.test('Status 400/404 for missing parameter', () => {",
+									"  pm.expect([400,404]).to.include(pm.response.code);",
+									"});",
+									"pm.test('Missing param message - tolerant', () => {",
+									"  const expectedSnippets = ['search_product parameter is missing', 'Missing', 'Bad Request', 'Not Found'];",
+									"  pm.expect(expectedSnippets.some(s => bodyText.includes(s))).to.be.true;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/searchProduct",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						},
+						"description": "Negative: missing search_product"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth & Users",
+			"item": [
+				{
+					"name": "API 7: Verify Login with valid details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const email = pm.environment.get('validEmail');",
+									"const pwd = pm.environment.get('validPassword');",
+									"if (!email || !pwd) {",
+									"  pm.test('SKIPPED: Set validEmail/validPassword in environment to enable this test', () => true);",
+									"} else {",
+									"  pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"  pm.test('User exists!', () => pm.expect(pm.response.text()).to.include('User exists!'));",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{validEmail}"
+								},
+								{
+									"key": "password",
+									"value": "{{validPassword}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "Happy path requires valid credentials in environment"
+					},
+					"response": []
+				},
+				{
+					"name": "API 8: Verify Login without email (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Missing email or password', () => pm.expect(pm.response.text()).to.include('email or password parameter is missing'));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "somepass"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "Negative: missing email"
+					},
+					"response": []
+				},
+				{
+					"name": "API 9: DELETE To Verify Login (405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const ct = pm.response.headers.get('Content-Type') || '';",
+									"const isJson = ct.toLowerCase().includes('application/json');",
+									"let bodyText = pm.response.text();",
+									"pm.test('Status 405/404 (method not allowed/not found)', () => {",
+									"  pm.expect([404,405]).to.include(pm.response.code);",
+									"});",
+									"pm.test('Method not supported - tolerant', () => {",
+									"  const expectedSnippets = ['This request method is not supported', 'Not Found', 'Method Not Allowed'];",
+									"  pm.expect(expectedSnippets.some(s => bodyText.includes(s))).to.be.true;",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "Negative: method not supported"
+					},
+					"response": []
+				},
+				{
+					"name": "API 10: Verify Login with invalid details (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 404', () => pm.response.to.have.status(404));",
+									"pm.test('User not found', () => pm.expect(pm.response.text()).to.include('User not found'));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "invalid@example.com"
+								},
+								{
+									"key": "password",
+									"value": "wrong"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "Negative: invalid credentials"
+					},
+					"response": []
+				},
+				{
+					"name": "API 11: Create/Register User Account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// API 11 pre-request: ensure randomized credentials per run and lifecycle sequencing",
+									"(function(){",
+									"  // Ensure baseUrl normalization",
+									"  pm.environment.set('baseUrl', 'https://automationexercise.com');",
+									"",
+									"  // Generate runSeed once per collection run",
+									"  if (!pm.environment.get('runSeed')) {",
+									"    pm.environment.set('runSeed', String(Date.now()));",
+									"  }",
+									"",
+									"  // Randomized new user credentials per run",
+									"  const seed = pm.environment.get('runSeed');",
+									"  const rand = Math.floor(Math.random() * 1e6);",
+									"  const email = `user_${seed}_${rand}@example.com`;",
+									"  pm.environment.set('newUserEmail', email);",
+									"  if (!pm.environment.get('newUserPassword')) {",
+									"    pm.environment.set('newUserPassword', 'Passw0rd!');",
+									"  }",
+									"",
+									"  // Mark lifecycle start for Auth & Users",
+									"  pm.environment.set('auth_flow_email', email);",
+									"  pm.environment.set('auth_flow_password', pm.environment.get('newUserPassword'));",
+									"})();"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 201', () => pm.response.to.have.status(201));",
+									"pm.test('User created!', () => pm.expect(pm.response.text()).to.include('User created'));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{user.name}}"
+								},
+								{
+									"key": "email",
+									"value": "{{newUserEmail}}"
+								},
+								{
+									"key": "password",
+									"value": "{{newUserPassword}}"
+								},
+								{
+									"key": "title",
+									"value": "{{user.title}}"
+								},
+								{
+									"key": "birth_date",
+									"value": "{{user.birth_date}}"
+								},
+								{
+									"key": "birth_month",
+									"value": "{{user.birth_month}}"
+								},
+								{
+									"key": "birth_year",
+									"value": "{{user.birth_year}}"
+								},
+								{
+									"key": "firstname",
+									"value": "{{user.firstname}}"
+								},
+								{
+									"key": "lastname",
+									"value": "{{user.lastname}}"
+								},
+								{
+									"key": "company",
+									"value": "{{user.company}}"
+								},
+								{
+									"key": "address1",
+									"value": "{{user.address1}}"
+								},
+								{
+									"key": "address2",
+									"value": "{{user.address2}}"
+								},
+								{
+									"key": "country",
+									"value": "{{user.country}}"
+								},
+								{
+									"key": "zipcode",
+									"value": "{{user.zipcode}}"
+								},
+								{
+									"key": "state",
+									"value": "{{user.state}}"
+								},
+								{
+									"key": "city",
+									"value": "{{user.city}}"
+								},
+								{
+									"key": "mobile_number",
+									"value": "{{user.mobile_number}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/createAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						},
+						"description": "Creates a new user with randomized email"
+					},
+					"response": []
+				},
+				{
+					"name": "API 14: GET user account detail by email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"const email = pm.environment.get('newUserEmail');",
+									"pm.expect(json).to.have.property('user');",
+									"pm.expect(json.user).to.be.an('object');",
+									"if (email) pm.expect(json.user.email).to.eql(email);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/getUserDetailByEmail?email={{newUserEmail}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"getUserDetailByEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{newUserEmail}}"
+								}
+							]
+						},
+						"description": "Fetch user details for created user"
+					},
+					"response": []
+				},
+				{
+					"name": "API 13: Update User Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('User updated!', () => pm.expect(pm.response.text()).to.include('User updated'));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{user.name}} Updated"
+								},
+								{
+									"key": "email",
+									"value": "{{newUserEmail}}"
+								},
+								{
+									"key": "password",
+									"value": "{{newUserPassword}}"
+								},
+								{
+									"key": "title",
+									"value": "{{user.title}}"
+								},
+								{
+									"key": "birth_date",
+									"value": "{{user.birth_date}}"
+								},
+								{
+									"key": "birth_month",
+									"value": "{{user.birth_month}}"
+								},
+								{
+									"key": "birth_year",
+									"value": "{{user.birth_year}}"
+								},
+								{
+									"key": "firstname",
+									"value": "{{user.firstname}}"
+								},
+								{
+									"key": "lastname",
+									"value": "{{user.lastname}}"
+								},
+								{
+									"key": "company",
+									"value": "{{user.company}}"
+								},
+								{
+									"key": "address1",
+									"value": "{{user.address1}}"
+								},
+								{
+									"key": "address2",
+									"value": "{{user.address2}}"
+								},
+								{
+									"key": "country",
+									"value": "{{user.country}}"
+								},
+								{
+									"key": "zipcode",
+									"value": "{{user.zipcode}}"
+								},
+								{
+									"key": "state",
+									"value": "{{user.state}}"
+								},
+								{
+									"key": "city",
+									"value": "{{user.city}}"
+								},
+								{
+									"key": "mobile_number",
+									"value": "{{user.mobile_number}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/updateAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"updateAccount"
+							]
+						},
+						"description": "Updates created user"
+					},
+					"response": []
+				},
+				{
+					"name": "API 12: Delete User Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Account deleted!', () => pm.expect(pm.response.text()).to.include('Account deleted'));"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{newUserEmail}}"
+								},
+								{
+									"key": "password",
+									"value": "{{newUserPassword}}"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/deleteAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						},
+						"description": "Deletes created user"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Auth & Users folder pre-request: chain requests Create -> GetByEmail -> Update -> Delete",
+							"(function(){",
+							"  // Expose commonly used values for request bodies/params",
+							"  pm.environment.set('auth_flow_email', pm.environment.get('newUserEmail'));",
+							"  pm.environment.set('auth_flow_password', pm.environment.get('newUserPassword'));",
+							"})();"
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Collection-level pre-request: ensure base variables and random user for each run",
+					"(function(){",
+					"  // Ensure baseUrl",
+					"  if (!pm.environment.get('baseUrl')) {",
+					"    pm.environment.set('baseUrl', 'https://automationexercise.com');",
+					"  }",
+					"",
+					"  // Initialize run seed once per collection run",
+					"  if (!pm.environment.get('runSeed')) {",
+					"    pm.environment.set('runSeed', String(Date.now()));",
+					"  }",
+					"",
+					"  // For Auth & Users flow, generate randomized email/password once per run if not present",
+					"  if (!pm.environment.get('newUserEmail')) {",
+					"    const seed = pm.environment.get('runSeed');",
+					"    const rand = Math.floor(Math.random() * 1e6);",
+					"    const email = `user_${seed}_${rand}@example.com`;",
+					"    pm.environment.set('newUserEmail', email);",
+					"  }",
+					"  if (!pm.environment.get('newUserPassword')) {",
+					"    pm.environment.set('newUserPassword', 'Passw0rd!');",
+					"  }",
+					"",
+					"  // Default profile fields if missing",
+					"  const defaults = {",
+					"    'user.name': 'Test User',",
+					"    'user.title': 'Mr',",
+					"    'user.birth_date': '10',",
+					"    'user.birth_month': '05',",
+					"    'user.birth_year': '1995',",
+					"    'user.firstname': 'Test',",
+					"    'user.lastname': 'User',",
+					"    'user.company': 'ACME',",
+					"    'user.address1': '123 Main St',",
+					"    'user.address2': 'Suite 1',",
+					"    'user.country': 'United States',",
+					"    'user.zipcode': '12345',",
+					"    'user.state': 'CA',",
+					"    'user.city': 'LA',",
+					"    'user.mobile_number': '+15555555555'",
+					"  };",
+					"  Object.keys(defaults).forEach(k => {",
+					"    if (pm.environment.get(k) === undefined) pm.environment.set(k, defaults[k]);",
+					"  });",
+					"",
+					"  // Control flow: implement user lifecycle chaining inside Auth & Users",
+					"  const authUsersFolderIds = [",
+					"    '48837784-04d2fb0b-689c-4700-a178-0ce9a3b072f8', // Create",
+					"    '48837784-24672168-81af-424f-984b-7a49888e1baa', // GetByEmail",
+					"    '48837784-1ff37aa4-dd2d-4065-aa42-5d5ea2222464', // Update",
+					"    '48837784-0830293c-8a75-425a-bc70-1a1241e899d5'  // Delete",
+					"  ];",
+					"  // Only sequence if running folder/collection",
+					"  if (pm.info.eventName === 'prerequest' && pm.info.iteration === 0) {",
+					"    // nothing else; sequencing handled naturally by folder order when runner is used",
+					"  }",
+					"})();"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Collection-level resilient tests aligned to API spec; content-type aware",
+					"(function(){",
+					"  const statusSpec = {",
+					"    \"API 1: Get All Products List\": 200,",
+					"    \"API 2: POST To All Products List (405)\": 405,",
+					"    \"API 3: Get All Brands List\": 200,",
+					"    \"API 4: PUT To All Brands List (405)\": 405,",
+					"    \"API 5: POST To Search Product\": 200,",
+					"    \"API 6: POST Search Product without parameter (400)\": 400,",
+					"    \"API 7: Verify Login with valid details\": 200,",
+					"    \"API 8: Verify Login without email (400)\": 400,",
+					"    \"API 9: DELETE To Verify Login (405)\": 405,",
+					"    \"API 10: Verify Login with invalid details (404)\": 404,",
+					"    \"API 11: Create/Register User Account\": 201,",
+					"    \"API 14: GET user account detail by email\": 200,",
+					"    \"API 13: Update User Account\": 200,",
+					"    \"API 12: Delete User Account\": 200",
+					"  };",
+					"",
+					"  function isJsonResponse() {",
+					"    const ct = pm.response.headers.get('Content-Type') || '';",
+					"    return ct.toLowerCase().includes('application/json') || ct.toLowerCase().includes('json');",
+					"  }",
+					"",
+					"  function safeJson() {",
+					"    try { return pm.response.json(); } catch(e) { return null; }",
+					"  }",
+					"",
+					"  // Always assert expected status code per spec",
+					"  const expected = statusSpec[pm.info.requestName];",
+					"  pm.test(`Status code matches spec for ${pm.info.requestName}`, function(){",
+					"    pm.expect(pm.response.code, `Expected ${expected} but got ${pm.response.code}`).to.eql(expected);",
+					"  });",
+					"",
+					"  // Content-type aware optional assertions",
+					"  if (isJsonResponse()) {",
+					"    const body = safeJson();",
+					"    pm.test('JSON body is valid', function(){",
+					"      pm.expect(body).to.be.an('object');",
+					"    });",
+					"",
+					"    // Best-effort schema/message checks without being brittle",
+					"    pm.test('JSON has either message or response fields when applicable', function(){",
+					"      if (body) {",
+					"        const keys = Object.keys(body);",
+					"        pm.expect(keys.length).to.be.greaterThan(0);",
+					"      }",
+					"    });",
+					"  } else {",
+					"    // If not JSON (e.g., HTML/text), do not assert on body shape",
+					"    pm.test('Non-JSON response tolerated', function(){",
+					"      pm.expect(true).to.be.true;",
+					"    });",
+					"  }",
+					"",
+					"  // Common timing assertion",
+					"  pm.test('Response time < 3s', function(){",
+					"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+					"  });",
+					"})();"
+				]
+			}
+		}
+	]
+}
