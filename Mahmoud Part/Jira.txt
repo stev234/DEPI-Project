@@ -1,1 +1,3 @@
-https://7odaelzayat.atlassian.net/jira/core/projects/API/board?filter=&groupBy=status&atlOrigin=eyJpIjoiOWY3OGM1ZDYzYmRkNDVkZGJlMjMyZDM3YjU3ODYzYzkiLCJwIjoiaiJ9
+Bug Jira:https://7odaelzayat.atlassian.net/jira/core/projects/SIG/board?filter=&groupBy=status&atlOrigin=eyJpIjoiMzQ2ZTkyNTM1ZTQ2NGQ4OWFhMDM0NDNjNWQ1NDM3NTEiLCJwIjoiaiJ9
+
+Test Jira:https://7odaelzayat.atlassian.net/jira/core/projects/ST/board?filter=&groupBy=status&atlOrigin=eyJpIjoiNmViYWU0YmI5OTU4NGExMjhmYjMyMWQ1ZWE1YzQyZTQiLCJwIjoiaiJ9
